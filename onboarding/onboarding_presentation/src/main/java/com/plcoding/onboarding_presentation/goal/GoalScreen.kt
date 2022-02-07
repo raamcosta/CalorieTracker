@@ -15,20 +15,23 @@ import com.plcoding.core.util.UiEvent
 import com.plcoding.core_ui.LocalSpacing
 import com.plcoding.core.R
 import com.plcoding.core.domain.model.GoalType
+import com.plcoding.onboarding_presentation.OnboardingNavigator
 import com.plcoding.onboarding_presentation.components.ActionButton
 import com.plcoding.onboarding_presentation.components.SelectableButton
+import com.ramcosta.composedestinations.annotation.Destination
 import kotlinx.coroutines.flow.collect
 
+@Destination
 @Composable
 fun GoalScreen(
-    onNextClick: () -> Unit,
+    navigator: OnboardingNavigator,
     viewModel: GoalViewModel = hiltViewModel()
 ) {
     val spacing = LocalSpacing.current
     LaunchedEffect(key1 = true) {
         viewModel.uiEvent.collect { event ->
             when (event) {
-                is UiEvent.Success -> onNextClick()
+                is UiEvent.Success -> navigator.navigateToNextScreen()
                 else -> Unit
             }
         }

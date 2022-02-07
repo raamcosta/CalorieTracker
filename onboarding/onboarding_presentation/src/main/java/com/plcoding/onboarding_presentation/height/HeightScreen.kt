@@ -14,14 +14,17 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.plcoding.core.R
 import com.plcoding.core.util.UiEvent
 import com.plcoding.core_ui.LocalSpacing
+import com.plcoding.onboarding_presentation.OnboardingNavigator
 import com.plcoding.onboarding_presentation.components.ActionButton
 import com.plcoding.onboarding_presentation.components.UnitTextField
+import com.ramcosta.composedestinations.annotation.Destination
 import kotlinx.coroutines.flow.collect
 
+@Destination
 @Composable
 fun HeightScreen(
     scaffoldState: ScaffoldState,
-    onNextClick: () -> Unit,
+    navigator: OnboardingNavigator,
     viewModel: HeightViewModel = hiltViewModel()
 ) {
     val spacing = LocalSpacing.current
@@ -29,7 +32,7 @@ fun HeightScreen(
     LaunchedEffect(key1 = true) {
         viewModel.uiEvent.collect { event ->
             when (event) {
-                is UiEvent.Success -> onNextClick()
+                is UiEvent.Success -> navigator.navigateToNextScreen()
                 is UiEvent.ShowSnackbar -> {
                     scaffoldState.snackbarHostState.showSnackbar(
                         message = event.message.asString(context)
