@@ -3,7 +3,6 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        maven { setUrl("https://jitpack.io") }
     }
     dependencies {
         classpath(Build.androidBuildTools)
