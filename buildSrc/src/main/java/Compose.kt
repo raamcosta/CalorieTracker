@@ -7,7 +7,7 @@ object Compose {
     const val runtime = "androidx.compose.runtime:runtime:$composeVersion"
     const val compiler = "androidx.compose.compiler:compiler:$composeCompilerVersion"
 
-    private const val composeDestinationsVersion = "1.3.1-beta"
+    private const val composeDestinationsVersion = "1.5.0-beta"
     const val composeDestinations = "io.github.raamcosta.compose-destinations:core:$composeDestinationsVersion"
     const val composeDestinationsKsp = "io.github.raamcosta.compose-destinations:ksp:$composeDestinationsVersion"
 

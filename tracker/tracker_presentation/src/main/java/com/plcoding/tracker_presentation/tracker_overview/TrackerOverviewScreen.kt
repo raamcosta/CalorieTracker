@@ -13,9 +13,11 @@ import com.plcoding.core_ui.LocalSpacing
 import com.plcoding.tracker_presentation.R
 import com.plcoding.tracker_presentation.tracker_overview.components.*
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootNavGraph
 
 @ExperimentalCoilApi
-@Destination(start = true)
+@RootNavGraph(start = true)
+@Destination
 @Composable
 fun TrackerOverviewScreen(
     navigator: TrackerOverviewScreenNavigator,

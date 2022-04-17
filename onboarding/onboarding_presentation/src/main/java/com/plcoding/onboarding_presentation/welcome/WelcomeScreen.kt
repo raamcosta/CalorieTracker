@@ -13,8 +13,10 @@ import com.plcoding.core_ui.LocalSpacing
 import com.plcoding.onboarding_presentation.OnboardingNavigator
 import com.plcoding.onboarding_presentation.components.ActionButton
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootNavGraph
 
-@Destination(start = true)
+@RootNavGraph(start = true)
+@Destination
 @Composable
 fun WelcomeScreen(
     navigator: OnboardingNavigator
