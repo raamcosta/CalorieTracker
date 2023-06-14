@@ -1,9 +1,9 @@
 package com.plcoding.tracker_presentation.tracker_overview
 
 import androidx.annotation.DrawableRes
+import com.plcoding.core.R
 import com.plcoding.core.util.UiText
 import com.plcoding.tracker_domain.model.MealType
-import com.plcoding.tracker_presentation.R
 
 data class Meal(
     val name: UiText,

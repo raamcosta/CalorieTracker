@@ -6,6 +6,7 @@ plugins {
 }
 
 android {
+    namespace = "com.plcoding.calorytracker"
     compileSdk = ProjectConfig.compileSdk
 
     defaultConfig {
@@ -30,16 +31,16 @@ android {
         compose = true
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = JavaVersion.VERSION_17.toString()
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Compose.composeCompilerVersion
+        kotlinCompilerExtensionVersion = composeCompilerVersion
     }
-    packagingOptions {
+    packaging {
         exclude("META-INF/AL2.0")
         exclude("META-INF/LGPL2.1")
         exclude("**/attach_hotspot_windows.dll")

@@ -17,7 +17,7 @@ import com.plcoding.tracker_presentation.destinations.SearchScreenDestination
 import com.plcoding.tracker_presentation.destinations.TrackerOverviewScreenDestination
 import com.plcoding.tracker_presentation.search.SearchScreenNavigator
 import com.plcoding.tracker_presentation.tracker_overview.TrackerOverviewScreenNavigator
-import com.ramcosta.composedestinations.navigation.navigateTo
+import com.ramcosta.composedestinations.navigation.navigate
 import com.ramcosta.composedestinations.spec.DestinationSpec
 
 @ExperimentalCoilApi
@@ -42,7 +42,7 @@ class CoreFeatureNavigator(
             NutrientGoalScreenDestination -> TrackerOverviewScreenDestination
         }
 
-        navController.navigateTo(nextDirection)
+        navController.navigate(nextDirection)
     }
 
     override fun navigateUp() {
@@ -50,7 +50,7 @@ class CoreFeatureNavigator(
     }
 
     override fun navigateToSearch(mealName: String, dayOfMonth: Int, month: Int, year: Int) {
-        navController.navigateTo(
+        navController.navigate(
             SearchScreenDestination(
                 mealName = mealName,
                 dayOfMonth = dayOfMonth,

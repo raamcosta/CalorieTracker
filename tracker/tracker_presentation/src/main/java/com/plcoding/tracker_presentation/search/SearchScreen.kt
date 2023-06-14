@@ -1,6 +1,12 @@
 package com.plcoding.tracker_presentation.search
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.CircularProgressIndicator
@@ -18,14 +24,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.annotation.ExperimentalCoilApi
+import com.plcoding.core.R
 import com.plcoding.core.util.UiEvent
 import com.plcoding.core_ui.LocalSpacing
 import com.plcoding.tracker_domain.model.MealType
-import com.plcoding.tracker_presentation.R
 import com.plcoding.tracker_presentation.search.components.SearchTextField
 import com.plcoding.tracker_presentation.search.components.TrackableFoodItem
 import com.ramcosta.composedestinations.annotation.Destination
-import kotlinx.coroutines.flow.collect
 import java.time.LocalDate
 
 @ExperimentalCoilApi

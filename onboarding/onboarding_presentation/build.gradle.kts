@@ -3,12 +3,17 @@ apply {
 }
 
 plugins {
-    id("com.google.devtools.ksp") version "1.6.10-1.0.2"
+    id("com.google.devtools.ksp") version "1.8.21-1.0.11"
+    id("com.android.library")
 }
 
 ksp {
     arg("compose-destinations.mode", "navgraphs")
     arg("compose-destinations.moduleName", "onboarding")
+}
+
+android {
+    namespace = "com.plcoding.onboarding_presentation"
 }
 
 dependencies {
