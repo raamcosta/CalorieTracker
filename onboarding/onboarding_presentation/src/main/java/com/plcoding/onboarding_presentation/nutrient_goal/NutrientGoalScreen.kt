@@ -1,6 +1,12 @@
 package com.plcoding.onboarding_presentation.nutrient_goal
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
@@ -14,34 +20,37 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.plcoding.core.R
 import com.plcoding.core.util.UiEvent
 import com.plcoding.core_ui.LocalSpacing
-import com.plcoding.onboarding_presentation.OnboardingNavigator
+import com.plcoding.onboarding_presentation.OnOnboardingFinished
 import com.plcoding.onboarding_presentation.components.ActionButton
 import com.plcoding.onboarding_presentation.components.UnitTextField
 import com.ramcosta.composedestinations.annotation.Destination
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.Flow
 
 @Destination
 @Composable
-fun NutrientGoalScreen(
+internal fun NutrientGoalScreen(
     scaffoldState: ScaffoldState,
-    navigator: OnboardingNavigator,
+    onOnboardingFinished: OnOnboardingFinished,
     viewModel: NutrientGoalViewModel = hiltViewModel()
 ) {
+    UiEventEffect(
+        uiEvents = viewModel.uiEvent,
+        scaffoldState = scaffoldState,
+        navigateToNextScreen = onOnboardingFinished::invoke
+    )
+
+    NutrientGoalScreenContent(
+        state = viewModel.state,
+        onEvent = viewModel::onEvent
+    )
+}
+
+@Composable
+private fun NutrientGoalScreenContent(
+    state: NutrientGoalState,
+    onEvent: (NutrientGoalEvent) -> Unit,
+) {
     val spacing = LocalSpacing.current
-    val context = LocalContext.current
-    LaunchedEffect(key1 = true) {
-        viewModel.uiEvent.collect { event ->
-            when (event) {
-                is UiEvent.Success -> navigator.navigateToNextScreen()
-                is UiEvent.ShowSnackbar -> {
-                    scaffoldState.snackbarHostState.showSnackbar(
-                        message = event.message.asString(context)
-                    )
-                }
-                else -> Unit
-            }
-        }
-    }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -58,25 +67,25 @@ fun NutrientGoalScreen(
             )
             Spacer(modifier = Modifier.height(spacing.spaceMedium))
             UnitTextField(
-                value = viewModel.state.carbsRatio,
+                value = state.carbsRatio,
                 onValueChange = {
-                    viewModel.onEvent(NutrientGoalEvent.OnCarbRatioEnter(it))
+                    onEvent(NutrientGoalEvent.OnCarbRatioEnter(it))
                 },
                 unit = stringResource(id = R.string.percent_carbs)
             )
             Spacer(modifier = Modifier.height(spacing.spaceMedium))
             UnitTextField(
-                value = viewModel.state.proteinRatio,
+                value = state.proteinRatio,
                 onValueChange = {
-                    viewModel.onEvent(NutrientGoalEvent.OnProteinRatioEnter(it))
+                    onEvent(NutrientGoalEvent.OnProteinRatioEnter(it))
                 },
                 unit = stringResource(id = R.string.percent_proteins)
             )
             Spacer(modifier = Modifier.height(spacing.spaceMedium))
             UnitTextField(
-                value = viewModel.state.fatRatio,
+                value = state.fatRatio,
                 onValueChange = {
-                    viewModel.onEvent(NutrientGoalEvent.OnFatRatioEnter(it))
+                    onEvent(NutrientGoalEvent.OnFatRatioEnter(it))
                 },
                 unit = stringResource(id = R.string.percent_fats)
             )
@@ -84,9 +93,32 @@ fun NutrientGoalScreen(
         ActionButton(
             text = stringResource(id = R.string.next),
             onClick = {
-                viewModel.onEvent(NutrientGoalEvent.OnNextClick)
+                onEvent(NutrientGoalEvent.OnNextClick)
             },
             modifier = Modifier.align(Alignment.BottomEnd)
         )
+    }
+}
+
+@Composable
+private fun UiEventEffect(
+    uiEvents: Flow<UiEvent>,
+    scaffoldState: ScaffoldState,
+    navigateToNextScreen: () -> Unit,
+) {
+    val context = LocalContext.current
+    LaunchedEffect(key1 = true) {
+        uiEvents.collect { event ->
+            when (event) {
+                is UiEvent.Success -> navigateToNextScreen()
+                is UiEvent.ShowSnackbar -> {
+                    scaffoldState.snackbarHostState.showSnackbar(
+                        message = event.message.asString(context)
+                    )
+                }
+
+                else -> Unit
+            }
+        }
     }
 }

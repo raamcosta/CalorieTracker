@@ -1,6 +1,12 @@
 package com.plcoding.onboarding_presentation.weight
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
@@ -14,17 +20,17 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.plcoding.core.R
 import com.plcoding.core.util.UiEvent
 import com.plcoding.core_ui.LocalSpacing
-import com.plcoding.onboarding_presentation.OnboardingNavigator
 import com.plcoding.onboarding_presentation.components.ActionButton
 import com.plcoding.onboarding_presentation.components.UnitTextField
+import com.plcoding.onboarding_presentation.destinations.ActivityScreenDestination
 import com.ramcosta.composedestinations.annotation.Destination
-import kotlinx.coroutines.flow.collect
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Destination
 @Composable
-fun WeightScreen(
+internal fun WeightScreen(
     scaffoldState: ScaffoldState,
-    navigator: OnboardingNavigator,
+    navigator: DestinationsNavigator,
     viewModel: WeightViewModel = hiltViewModel()
 ) {
     val spacing = LocalSpacing.current
@@ -32,7 +38,7 @@ fun WeightScreen(
     LaunchedEffect(key1 = true) {
         viewModel.uiEvent.collect { event ->
             when (event) {
-                is UiEvent.Success -> navigator.navigateToNextScreen()
+                is UiEvent.Success -> navigator.navigate(ActivityScreenDestination)
                 is UiEvent.ShowSnackbar -> {
                     scaffoldState.snackbarHostState.showSnackbar(
                         message = event.message.asString(context)

@@ -14,6 +14,7 @@ android {
 ksp {
     arg("compose-destinations.mode", "navgraphs")
     arg("compose-destinations.moduleName", "tracker")
+    arg("compose-destinations.useComposableVisibility", "true")
 }
 
 dependencies {

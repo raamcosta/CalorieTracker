@@ -1,26 +1,39 @@
 package com.plcoding.tracker_presentation.tracker_overview
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.annotation.ExperimentalCoilApi
-import com.plcoding.core_ui.LocalSpacing
 import com.plcoding.core.R
-import com.plcoding.tracker_presentation.tracker_overview.components.*
+import com.plcoding.core_ui.LocalSpacing
+import com.plcoding.tracker_presentation.destinations.SearchScreenDestination
+import com.plcoding.tracker_presentation.tracker_overview.components.AddButton
+import com.plcoding.tracker_presentation.tracker_overview.components.DaySelector
+import com.plcoding.tracker_presentation.tracker_overview.components.ExpandableMeal
+import com.plcoding.tracker_presentation.tracker_overview.components.NutrientsHeader
+import com.plcoding.tracker_presentation.tracker_overview.components.TrackedFoodItem
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
+@ExperimentalComposeUiApi
 @ExperimentalCoilApi
 @RootNavGraph(start = true)
 @Destination
 @Composable
-fun TrackerOverviewScreen(
-    navigator: TrackerOverviewScreenNavigator,
+internal fun TrackerOverviewScreen(
+    navigator: DestinationsNavigator,
     viewModel: TrackerOverviewViewModel = hiltViewModel()
 ) {
     val spacing = LocalSpacing.current
@@ -78,11 +91,13 @@ fun TrackerOverviewScreen(
                                 meal.name.asString(context)
                             ),
                             onClick = {
-                                navigator.navigateToSearch(
-                                    meal.name.asString(context),
-                                    state.date.dayOfMonth,
-                                    state.date.monthValue,
-                                    state.date.year
+                                navigator.navigate(
+                                    SearchScreenDestination(
+                                        mealName = meal.name.asString(context),
+                                        dayOfMonth = state.date.dayOfMonth,
+                                        month = state.date.monthValue,
+                                        year = state.date.year
+                                    )
                                 )
                             },
                             modifier = Modifier.fillMaxWidth()

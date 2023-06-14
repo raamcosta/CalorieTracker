@@ -1,6 +1,14 @@
 package com.plcoding.onboarding_presentation.activity
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -11,27 +19,27 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.plcoding.core.util.UiEvent
-import com.plcoding.core_ui.LocalSpacing
 import com.plcoding.core.R
 import com.plcoding.core.domain.model.ActivityLevel
-import com.plcoding.onboarding_presentation.OnboardingNavigator
+import com.plcoding.core.util.UiEvent
+import com.plcoding.core_ui.LocalSpacing
 import com.plcoding.onboarding_presentation.components.ActionButton
 import com.plcoding.onboarding_presentation.components.SelectableButton
+import com.plcoding.onboarding_presentation.destinations.GoalScreenDestination
 import com.ramcosta.composedestinations.annotation.Destination
-import kotlinx.coroutines.flow.collect
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Destination
 @Composable
-fun ActivityScreen(
-    navigator: OnboardingNavigator,
+internal fun ActivityScreen(
+    navigator: DestinationsNavigator,
     viewModel: ActivityViewModel = hiltViewModel()
 ) {
     val spacing = LocalSpacing.current
     LaunchedEffect(key1 = true) {
         viewModel.uiEvent.collect { event ->
             when (event) {
-                is UiEvent.Success -> navigator.navigateToNextScreen()
+                is UiEvent.Success -> navigator.navigate(GoalScreenDestination)
                 else -> Unit
             }
         }

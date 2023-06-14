@@ -31,19 +31,20 @@ import com.plcoding.tracker_domain.model.MealType
 import com.plcoding.tracker_presentation.search.components.SearchTextField
 import com.plcoding.tracker_presentation.search.components.TrackableFoodItem
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import java.time.LocalDate
 
 @ExperimentalCoilApi
 @ExperimentalComposeUiApi
 @Destination
 @Composable
-fun SearchScreen(
+internal fun SearchScreen(
     scaffoldState: ScaffoldState,
     mealName: String,
     dayOfMonth: Int,
     month: Int,
     year: Int,
-    navigator: SearchScreenNavigator,
+    navigator: DestinationsNavigator,
     viewModel: SearchViewModel = hiltViewModel()
 ) {
     val spacing = LocalSpacing.current
